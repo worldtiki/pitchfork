@@ -1,6 +1,17 @@
 server:
   port: 9411
+  # SSL configs below.
+  # This is using a self signed cert created like this:
+  # keytool -genkeypair -alias pitchfork-test -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore pitchfork-test.p12 -validity 3650
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:pitchfork-test.p12
+    key-store-password: password
+    key-alias: pitchfork-test
+    enabled: true
+
 logging.pattern.console: "%d{&quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;} %highlight(%-5level) [%thread] rid=[%X{rid}] %logger{36} - %msg %rEx{30}%n"
+
 pitchfork:
   validators:
     accept-null-timestamps: true
