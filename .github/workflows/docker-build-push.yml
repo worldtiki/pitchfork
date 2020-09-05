@@ -2,8 +2,8 @@ name: Publish Docker image
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - '*'
 
 jobs:
   publish-docker:
@@ -18,8 +18,8 @@ jobs:
       with:
         version: '14'
         architecture: x64
-    - name: Build with Maven
-      run: ./mvnw clean package
+    - name: Build with Maven (no tests)
+      run: ./mvnw clean package -DskipTests
 
     - name: Build and push Docker images on new git tags
       uses: docker/build-push-action@v1
