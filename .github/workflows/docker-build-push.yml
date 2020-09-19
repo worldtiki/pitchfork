@@ -21,11 +21,13 @@ jobs:
     - name: Build with Maven (no tests)
       run: ./mvnw clean package -DskipTests
 
-    - name: Build and push Docker images on new git tags
-      uses: docker/build-push-action@v2
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
       with:
         username: worldtiki
         password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: worldtiki/pitchfork
+    - name: Build and push Docker images on new git tags
+      uses: docker/build-push-action@v2
+      with:
         tags: worldtiki/pitchfork:latest
         push: true
